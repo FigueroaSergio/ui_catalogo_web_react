@@ -4,7 +4,7 @@ function NavBar(props) {
     <>
       <nav
         id="sidebarMenu"
-        className="  navbar col-md-3 col-lg-2 d-md-block navbar-light  bg-light sidebar collapse"
+        className=" col-md-3 col-lg-2 d-md-block bg-light sidebar collapse "
       >
         <div className="position-sticky">
           <ul className=" navbar-nav  flex-column">{props.children}</ul>
