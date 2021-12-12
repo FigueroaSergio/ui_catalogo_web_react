@@ -8,15 +8,18 @@ import { FormMain } from "./componets/FormMain";
 import { user } from "./config/Userform";
 import { clothe } from "./config/ClotheForm";
 import { order } from "./config/OrderForm";
+import { login } from "./config/LoginForm";
 import logo from "./logo.svg";
 
 const company = "Alto tumerque LTDA";
 function App() {
-  const pages = ["user", "clothe", "order"];
+  const pages = ["user", "clothe", "order", "login"];
   const [actualPage, setActualPage] = useState(pages[0]);
+  const [userData, setUserData] = useState({});
 
-  const form = { clothe, user, order };
+  const form = { clothe, user, order, login };
   //console.log(form);
+  console.log(userData);
   return (
     <>
       <Header company={company} logo={logo} />
@@ -37,6 +40,7 @@ function App() {
             <FormMain
               fields={form[actualPage].fields}
               action={form[actualPage].action}
+              handleData={setUserData}
             />
           </div>
         </div>

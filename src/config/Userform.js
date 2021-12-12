@@ -27,6 +27,7 @@ let user = {
     },
   },
   action: async function (data) {
+    // console.log(data);
     let res = await fetch("http://localhost:8080/api/user/all");
     res = await res.json();
     console.log(res);

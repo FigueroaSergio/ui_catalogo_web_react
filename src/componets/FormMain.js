@@ -1,7 +1,7 @@
 import React from "react";
 import { FormItem } from "./FormItem";
 
-function FormMain({ fields, action }) {
+function FormMain({ fields, action, handleData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {};
@@ -10,7 +10,7 @@ function FormMain({ fields, action }) {
       // console.log(val.value, key);
       data[key] = val;
     }
-    action(data);
+    action(data, handleData);
   };
   return (
     <>
