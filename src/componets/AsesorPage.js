@@ -61,10 +61,10 @@ function AsesorPage({ userData, setUserData }) {
             <FormMain
               fields={order.fields}
               action={order.action}
-              setUserData={setProducts}
-              userData={products}
+              setUserData={setUserData}
+              userData={userData}
             />
-            <Table setUserData={setProducts} userData={products} />
+            <Table setUserData={setProducts} userData={userData.products} />
             {Object.keys(products).length > 0 ? (
               <button className="btn btn-sm btn-outline-dark" onClick={ordenar}>
                 Ordenar

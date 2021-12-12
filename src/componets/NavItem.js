@@ -1,6 +1,7 @@
-function NavItem({ text, state, setActualPage }) {
+function NavItem({ text, state, userData, setUserData }) {
   const chagePage = () => {
-    setActualPage(text);
+    let user = userData.user;
+    setUserData({ user, page: text });
   };
   return (
     <li className="nav-item">

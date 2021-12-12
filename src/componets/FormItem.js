@@ -1,7 +1,7 @@
 import React from "react";
 import { FormInput } from "./FormInput";
 
-function FormItem({ name, type, required, opts }) {
+function FormItem({ name, type, required, opts, userData, setUserData }) {
   // console.log(name, type, required, opts);
 
   return (
@@ -11,7 +11,14 @@ function FormItem({ name, type, required, opts }) {
           {name}
         </label>
         <div className="col-sm-8">
-          <FormInput name={name} type={type} required={required} opts={opts} />
+          <FormInput
+            name={name}
+            type={type}
+            required={required}
+            opts={opts}
+            setUserData={setUserData}
+            userData={userData}
+          />
         </div>
       </div>
     </>

@@ -9,9 +9,10 @@ import { user } from "../config/Userform";
 
 function AdminPage({ userData, setUserData }) {
   const pages = ["clothe", "user"];
-  const [actualPage, setActualPage] = useState("clothe");
+  let actualPage = userData.page || "clothe";
   const form = { clothe, user };
 
+  console.log(userData);
   return (
     <>
       <div className="container-fluid">
@@ -22,7 +23,8 @@ function AdminPage({ userData, setUserData }) {
                 text={page}
                 key={page}
                 state={actualPage}
-                setActualPage={setActualPage}
+                setUserData={setUserData}
+                userData={userData}
               />
             ))}
           </NavBar>
@@ -30,6 +32,8 @@ function AdminPage({ userData, setUserData }) {
             <FormMain
               fields={form[actualPage].fields}
               action={form[actualPage].action}
+              setUserData={setUserData}
+              userData={userData}
             />
           </div>
         </div>

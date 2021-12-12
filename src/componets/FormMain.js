@@ -26,6 +26,8 @@ function FormMain({ fields, action, userData, setUserData }) {
                     required={fields[key].required}
                     key={key}
                     opts={fields[key].opts}
+                    setUserData={setUserData}
+                    userData={userData}
                   />
                 );
               })}

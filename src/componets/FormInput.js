@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 
-function FormInput({ name, type, required, opts }) {
+function FormInput({ name, type, required, opts, userData, setUserData }) {
   let [data, setData] = useState([""]);
+  const updateData = (e) => {
+    console.log(userData);
+    setUserData({
+      ...userData,
+      form: { [e.target.name]: e.target.value },
+    });
+  };
   useEffect(() => {
     // console.log(opts);
     if (type === "select" && typeof opts === "string") {
@@ -30,6 +37,7 @@ function FormInput({ name, type, required, opts }) {
         id={name}
         name={name}
         required={required}
+        onChange={updateData}
       />
     );
   }

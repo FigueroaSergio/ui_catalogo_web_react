@@ -16,7 +16,7 @@ let order = {
     let { product, quantity } = data;
     quantity = parseInt(quantity);
     if (userData[product] != null) quantity += userData[product];
-    setUserData({ ...userData, [product]: quantity });
+    setUserData({ ...userData, products: { [product]: quantity } });
   },
 };
 export { order };
