@@ -22,7 +22,7 @@ function FormInput({ name, type, required, opts }) {
     }
   }, []);
 
-  if (type != "select") {
+  if (type !== "select") {
     return (
       <input
         type={type}

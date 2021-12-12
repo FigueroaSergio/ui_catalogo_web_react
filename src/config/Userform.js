@@ -1,3 +1,5 @@
+import { URL } from "./config";
+
 let user = {
   fields: {
     identification: {
@@ -28,9 +30,22 @@ let user = {
   },
   action: async function (data) {
     // console.log(data);
-    let res = await fetch("http://localhost:8080/api/user/all");
+    let res = await fetch(`${URL}/user/emailexist/${data.email}`);
     res = await res.json();
-    console.log(res);
+
+    if (!res) {
+      res = await fetch(`${URL}/user/new`, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      res = await res.json();
+      if (res.id) {
+        alert("Usuario creado");
+      }
+    } else {
+      alert("El correo ya existe");
+    }
   },
 };
 export { user };

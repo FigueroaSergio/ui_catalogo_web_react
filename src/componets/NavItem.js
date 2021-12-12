@@ -4,13 +4,12 @@ function NavItem({ text, state, setActualPage }) {
   };
   return (
     <li className="nav-item">
-      <a
+      <p
         className={`nav-link ${state === text && "active"}`}
         onClick={chagePage}
-        href="#"
       >
         {text}
-      </a>
+      </p>
     </li>
   );
 }

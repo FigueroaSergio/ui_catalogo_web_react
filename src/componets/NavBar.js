@@ -1,5 +1,8 @@
 import React from "react";
-function NavBar(props) {
+function NavBar({ children, userData, setUserData }) {
+  const singout = () => {
+    setUserData({});
+  };
   return (
     <>
       <nav
@@ -7,7 +10,16 @@ function NavBar(props) {
         className=" col-md-3 col-lg-2 d-md-block bg-light sidebar collapse "
       >
         <div className="position-sticky">
-          <ul className=" navbar-nav  flex-column">{props.children}</ul>
+          <ul className=" navbar-nav  flex-column">
+            {children}
+            {userData.user ? (
+              <li className="nav-item">
+                <p className="nav-link" onClick={singout}>
+                  Singout
+                </p>
+              </li>
+            ) : null}
+          </ul>
         </div>
       </nav>
     </>

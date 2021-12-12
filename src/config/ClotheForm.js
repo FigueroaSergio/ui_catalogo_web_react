@@ -1,3 +1,5 @@
+import { URL } from "./config";
+
 let clothe = {
   fields: {
     category: {
@@ -35,8 +37,17 @@ let clothe = {
       required: true,
     },
   },
-  action: function (data) {
-    console.log(data);
+  action: async function (data) {
+    data.availability = data.availability === "Si" ? true : false;
+    let res = await fetch(`${URL}/clothe/new`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    res = await res.json();
+    if (res.reference) {
+      alert("Prenda creada");
+    }
   },
 };
 export { clothe };

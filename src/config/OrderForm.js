@@ -1,6 +1,6 @@
 let order = {
   fields: {
-    products: {
+    product: {
       type: "select",
       opts: "http://localhost:8080/api/clothe/all",
       required: true,
@@ -11,8 +11,12 @@ let order = {
       required: true,
     },
   },
-  action: async function (data) {
-    console.log(data);
+  action: async function (data, setUserData, userData) {
+    // console.log(data);
+    let { product, quantity } = data;
+    quantity = parseInt(quantity);
+    if (userData[product] != null) quantity += userData[product];
+    setUserData({ ...userData, [product]: quantity });
   },
 };
 export { order };

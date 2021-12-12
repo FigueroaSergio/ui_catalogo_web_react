@@ -1,7 +1,7 @@
 function Header({ company, logo }) {
   return (
     <>
-      <header className="navbar bg-light navbar-light sticky-top  navbar-expand-lg  flex-md-nowrap p-0 shadow">
+      <header className="navbar bg-light navbar-light sticky-top  navbar-expand-md  flex-md-nowrap p-0 shadow">
         <a className="navbar-brand" href="/">
           <img
             src={logo}
@@ -12,7 +12,6 @@ function Header({ company, logo }) {
           />
           {company}
         </a>
-
         <button
           className="navbar-toggler"
           type="button"
@@ -24,13 +23,6 @@ function Header({ company, logo }) {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        {/* <div className="navbar-nav">
-          <div className="nav-item text-nowrap">
-            <a className="nav-link px-3" href="#">
-              Sign out
-            </a>
-          </div>
-        </div> */}
       </header>
     </>
   );

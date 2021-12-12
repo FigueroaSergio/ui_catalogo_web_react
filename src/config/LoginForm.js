@@ -1,3 +1,4 @@
+import { URL } from "./config";
 let login = {
   fields: {
     email: {
@@ -9,21 +10,17 @@ let login = {
       required: true,
     },
   },
-  action: async function (data, hadleData) {
+  action: async function (data, setUserData) {
     // console.log(data);
-    let res = await fetch(
-      `http://localhost:8080/api/user/emailexist/${data.email}`
-    );
+    let res = await fetch(`${URL}/user/emailexist/${data.email}`);
     res = await res.json();
     if (res) {
-      res = await fetch(
-        `http://localhost:8080/api/user/${data.email}/${data.password}`
-      );
+      res = await fetch(`${URL}/user/${data.email}/${data.password}`);
       res = await res.json();
       if (res.id == null) {
         alert("Password incorrecta no existe");
       } else {
-        hadleData(res);
+        setUserData({ user: res });
       }
     } else {
       alert("Email no existe");

@@ -1,7 +1,7 @@
 import React from "react";
 import { FormItem } from "./FormItem";
 
-function FormMain({ fields, action, handleData }) {
+function FormMain({ fields, action, userData, setUserData }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = {};
@@ -10,7 +10,7 @@ function FormMain({ fields, action, handleData }) {
       // console.log(val.value, key);
       data[key] = val;
     }
-    action(data, handleData);
+    action(data, setUserData, userData);
   };
   return (
     <>
@@ -30,7 +30,7 @@ function FormMain({ fields, action, handleData }) {
                 );
               })}
               <button type="submit" className="btn btn-dark">
-                Submit
+                Enviar
               </button>
             </form>
           </div>
