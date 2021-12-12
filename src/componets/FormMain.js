@@ -24,7 +24,7 @@ function FormMain({ fields, action }) {
                     type={fields[key].type}
                     name={key}
                     required={fields[key].required}
-                    key={index}
+                    key={key}
                     opts={fields[key].opts}
                   />
                 );

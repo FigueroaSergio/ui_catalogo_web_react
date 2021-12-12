@@ -2,7 +2,7 @@ function Header({ company, logo }) {
   return (
     <>
       <header className="navbar bg-light navbar-light sticky-top  navbar-expand-lg  flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           <img
             src={logo}
             alt=""

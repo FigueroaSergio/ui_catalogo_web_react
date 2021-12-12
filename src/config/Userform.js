@@ -26,8 +26,10 @@ let user = {
       opts: ["COORD", "ASE", "ADM"],
     },
   },
-  action: function (data) {
-    console.log(data);
+  action: async function (data) {
+    let res = await fetch("http://localhost:8080/api/user/all");
+    res = await res.json();
+    console.log(res);
   },
 };
 export { user };
