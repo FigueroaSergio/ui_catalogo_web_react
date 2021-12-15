@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { NavBar } from "./NavBar";
 import { NavItem } from "./NavItem";
 import { FormMain } from "./FormMain";
@@ -12,20 +10,14 @@ function AdminPage({ userData, setUserData }) {
   let actualPage = userData.page || "clothe";
   const form = { clothe, user };
 
-  console.log(userData);
+  // console.log(userData);
   return (
     <>
       <div className="container-fluid">
         <div className="row">
-          <NavBar userData={userData} setUserData={setUserData}>
+          <NavBar>
             {pages.map((page) => (
-              <NavItem
-                text={page}
-                key={page}
-                state={actualPage}
-                setUserData={setUserData}
-                userData={userData}
-              />
+              <NavItem text={page} key={page} state={actualPage} />
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">

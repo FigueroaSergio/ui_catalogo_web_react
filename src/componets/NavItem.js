@@ -1,7 +1,11 @@
-function NavItem({ text, state, userData, setUserData }) {
+import { useContext } from "react";
+import { Context } from "./Context/Context";
+
+function NavItem({ text, state }) {
+  const { userData, setUserData } = useContext(Context);
   const chagePage = () => {
     let user = userData.user;
-    setUserData({ user, page: text });
+    setUserData({ user, form: {}, page: text });
   };
   return (
     <li className="nav-item">

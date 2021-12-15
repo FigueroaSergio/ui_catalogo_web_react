@@ -1,15 +1,14 @@
-import React from "react";
+import { useContext } from "react";
+import { Context } from "./Context/Context";
 import { FormItem } from "./FormItem";
 
-function FormMain({ fields, action, userData, setUserData }) {
+function FormMain({ fields, action }) {
+  const { userData, setUserData } = useContext(Context);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    let data = {};
-    for (let key in fields) {
-      let val = document.getElementById(key).value;
-      // console.log(val.value, key);
-      data[key] = val;
-    }
+    let data = userData.form;
+    console.log(data);
     action(data, setUserData, userData);
   };
   return (
@@ -26,8 +25,6 @@ function FormMain({ fields, action, userData, setUserData }) {
                     required={fields[key].required}
                     key={key}
                     opts={fields[key].opts}
-                    setUserData={setUserData}
-                    userData={userData}
                   />
                 );
               })}

@@ -1,7 +1,9 @@
-import React from "react";
-function NavBar({ children, userData, setUserData }) {
+import { useContext } from "react";
+import { Context } from "./Context/Context";
+function NavBar({ children }) {
+  const { setUserData } = useContext(Context);
   const singout = () => {
-    setUserData({});
+    setUserData({ page: "", form: {} });
   };
   return (
     <>
@@ -12,13 +14,12 @@ function NavBar({ children, userData, setUserData }) {
         <div className="position-sticky">
           <ul className=" navbar-nav  flex-column">
             {children}
-            {userData.user ? (
-              <li className="nav-item">
-                <p className="nav-link" onClick={singout}>
-                  Singout
-                </p>
-              </li>
-            ) : null}
+
+            <li className="nav-item">
+              <p className="nav-link" onClick={singout}>
+                Singout
+              </p>
+            </li>
           </ul>
         </div>
       </nav>

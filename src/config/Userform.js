@@ -26,6 +26,7 @@ let user = {
     type: {
       type: "select",
       opts: ["COORD", "ASE", "ADM"],
+      required: true,
     },
   },
   action: async function (data) {

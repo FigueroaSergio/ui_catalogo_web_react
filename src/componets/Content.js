@@ -1,12 +1,14 @@
+import { useContext } from "react";
 import { CoordPage } from "./CoordPage";
 import { LoginPage } from "./LoginPage";
 import { AdminPage } from "./AdminPage";
 import { AsesorPage } from "./AsesorPage";
+import { Context } from "./Context/Context";
 
-function Content({ userData, setUserData }) {
-  //   console.log(userData);
+function Content() {
+  const { userData, setUserData } = useContext(Context);
   if (userData.user == null) {
-    return <LoginPage setUserData={setUserData} />;
+    return <LoginPage />;
   } else if (userData.user.type === "COORD") {
     return <CoordPage userData={userData} setUserData={setUserData} />;
   } else if (userData.user.type === "ADM") {

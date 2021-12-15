@@ -20,7 +20,7 @@ let login = {
       if (res.id == null) {
         alert("Password incorrecta no existe");
       } else {
-        setUserData({ user: res });
+        setUserData({ user: res, form: {} });
       }
     } else {
       alert("Email no existe");

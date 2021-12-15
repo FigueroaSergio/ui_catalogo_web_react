@@ -1,33 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { Context } from "./Context/Context";
+function FormInput({ name, type, required, opts }) {
+  const { userData, setUserData } = useContext(Context);
 
-function FormInput({ name, type, required, opts, userData, setUserData }) {
-  let [data, setData] = useState([""]);
+  let valInput = userData.form[name] ? userData.form[name] : "";
+
   const updateData = (e) => {
-    console.log(userData);
     setUserData({
       ...userData,
-      form: { [e.target.name]: e.target.value },
+      form: { ...userData.form, [e.target.name]: e.target.value },
     });
+    // console.log(userData);
   };
-  useEffect(() => {
-    // console.log(opts);
-    if (type === "select" && typeof opts === "string") {
-      fetch(opts)
-        .then((res) => res.json())
-        .then((res) => {
-          //   console.log(data);
-          let info = [];
-          res.forEach((ele) => info.push(ele.reference));
-          setData(info);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (type === "select") {
-      //   console.log(opts);
-      setData(opts);
-    }
-  }, []);
 
   if (type !== "select") {
     return (
@@ -36,6 +20,7 @@ function FormInput({ name, type, required, opts, userData, setUserData }) {
         className="form-control"
         id={name}
         name={name}
+        value={valInput}
         required={required}
         onChange={updateData}
       />
@@ -43,8 +28,18 @@ function FormInput({ name, type, required, opts, userData, setUserData }) {
   }
   if (type === "select")
     return (
-      <select className="form-select" id={name}>
-        {data.map((opt) => (
+      <select
+        className="form-select"
+        name={name}
+        defaultValue={valInput}
+        onChange={updateData}
+        id={name}
+        required={required}
+      >
+        <option value="" disabled>
+          seleccionar
+        </option>
+        {opts.map((opt) => (
           <option value={opt} key={opt}>
             {opt}
           </option>
