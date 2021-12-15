@@ -12,9 +12,9 @@ function Content() {
   } else if (userData.user.type === "COORD") {
     return <CoordPage userData={userData} setUserData={setUserData} />;
   } else if (userData.user.type === "ADM") {
-    return <AdminPage userData={userData} setUserData={setUserData} />;
+    return <AdminPage />;
   } else if (userData.user.type === "ASE") {
-    return <AsesorPage userData={userData} setUserData={setUserData} />;
+    return <AsesorPage />;
   }
 }
 export { Content };

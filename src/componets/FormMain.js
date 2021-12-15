@@ -8,7 +8,7 @@ function FormMain({ fields, action }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let data = userData.form;
-    console.log(data);
+    // console.log(data);
     action(data, setUserData, userData);
   };
   return (

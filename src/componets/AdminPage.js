@@ -4,8 +4,11 @@ import { FormMain } from "./FormMain";
 
 import { clothe } from "../config/ClotheForm";
 import { user } from "../config/Userform";
+import { useContext } from "react";
+import { Context } from "./Context/Context";
 
-function AdminPage({ userData, setUserData }) {
+function AdminPage() {
+  const { userData, setUserData } = useContext(Context);
   const pages = ["clothe", "user"];
   let actualPage = userData.page || "clothe";
   const form = { clothe, user };

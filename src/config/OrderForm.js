@@ -2,7 +2,8 @@ let order = {
   fields: {
     product: {
       type: "select",
-      opts: "http://localhost:8080/api/clothe/all",
+      url: "http://localhost:8080/api/clothe/all",
+      opts: [],
       required: true,
     },
     quantity: {
@@ -13,10 +14,24 @@ let order = {
   },
   action: async function (data, setUserData, userData) {
     // console.log(data);
+    let products = userData.products;
     let { product, quantity } = data;
     quantity = parseInt(quantity);
-    if (userData[product] != null) quantity += userData[product];
-    setUserData({ ...userData, products: { [product]: quantity } });
+
+    if (!products) {
+      //No hay productos
+      products = { [product]: quantity };
+    } else {
+      let oldData = userData.products[product];
+      if (!oldData)
+        //no existe el producto
+        products = { ...products, [product]: quantity };
+      else {
+        products = { ...products, [product]: quantity + oldData };
+      }
+    }
+    setUserData({ ...userData, products });
+    // console.log(userData);
   },
 };
 export { order };

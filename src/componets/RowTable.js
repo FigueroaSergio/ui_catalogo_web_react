@@ -1,27 +1,27 @@
-function RowTable({ id, userData, setUserData }) {
-  const deleteElement = () => {
-    console.log(id);
-    delete userData[id];
-    let newData = JSON.parse(JSON.stringify(userData));
-    console.log(userData);
-    if (Object.keys(userData).length == 0) setUserData({});
-    else setUserData(newData);
-  };
-  return (
+function RowTable({ row, table_index, actions }) {
+  return row.length > 0 ? (
     <>
       <tr>
-        <td>{id}</td>
-        <td>{userData[id]}</td>
-        <td>
-          <button
-            className="btn btn-sm btn-outline-dark"
-            onClick={deleteElement}
-          >
-            x
-          </button>
-        </td>
+        {row.map((ele, index) => (
+          <td key={`${table_index}-${index}`}>{ele}</td>
+        ))}
+        {actions.length > 0 ? (
+          <td>
+            {actions.map((action, index) => (
+              <button
+                className="btn btn-sm btn-outline-dark"
+                key={`action-${table_index}-${index}`}
+                onClick={() => {
+                  action.action(row[0]);
+                }}
+              >
+                {action.name}
+              </button>
+            ))}
+          </td>
+        ) : null}
       </tr>
     </>
-  );
+  ) : null;
 }
 export { RowTable };

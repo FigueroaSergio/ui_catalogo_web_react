@@ -1,6 +1,6 @@
 import { RowTable } from "./RowTable";
-import { useEffect } from "react";
-function Table({ userData, setUserData }) {
+
+function Table({ headers, content, actions }) {
   //   console.log(userData);
   return (
     <>
@@ -8,18 +8,18 @@ function Table({ userData, setUserData }) {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Producto</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Accion</th>
+              {headers.map((ele, index) => (
+                <th key={`Header-${index}`}>{ele}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {Object.keys(userData).map((key, index) => (
+            {content.map((row, index) => (
               <RowTable
-                key={key}
-                id={key}
-                userData={userData}
-                setUserData={setUserData}
+                key={index}
+                row={row}
+                table_index={index}
+                actions={actions}
               />
             ))}
           </tbody>

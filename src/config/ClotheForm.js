@@ -32,8 +32,6 @@ let clothe = {
     availability: {
       type: "select",
       opts: ["Si", "No"],
-      edition: true,
-      view: true,
       required: true,
     },
   },

@@ -1,44 +1,89 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { Context } from "./Context/Context";
 import { NavBar } from "./NavBar";
 import { NavItem } from "./NavItem";
 import { FormMain } from "./FormMain";
 import { Table } from "./Table";
 import { order } from "../config/OrderForm";
-
 import { URL } from "../config/config";
 
-function AsesorPage({ userData, setUserData }) {
-  const pages = ["order"];
-  const [actualPage, setActualPage] = useState("order");
-  const [products, setProducts] = useState({});
-  //   console.log(userData);
-  //   console.log(products);
+function AsesorPage() {
+  const normilizeData = (data) => {
+    let datos = [];
+    if (Object.keys(data).length === 0) {
+      return [[]];
+    }
+    for (let key in data) {
+      let row = [];
+      row.push(key);
+      row.push(data[key]);
+      datos.push(row);
+    }
+    // console.log(datos);
+    return datos;
+  };
+  const { userData, setUserData } = useContext(Context);
+  const [form, setForm] = useState(order);
+  const [options, setOptions] = useState([]);
+  const products = userData.products ? normilizeData(userData.products) : [[]];
 
+  const pages = ["order"];
+
+  let actualPage = userData.page || "order";
+
+  useEffect(() => {
+    // console.log("entre_");
+    let options;
+    const getOpts = async () => {
+      options = await fetch(order.fields.product.url);
+      let newOptions = JSON.parse(JSON.stringify(order));
+      newOptions["action"] = order.action;
+      options = await options.json();
+      await options.forEach((product) => {
+        newOptions.fields.product.opts.push(product.reference);
+      });
+      // setUserData({ ...userData, options });
+      setForm(newOptions);
+      setOptions(options);
+    };
+    getOpts();
+
+    //console.log(form);
+  }, []);
+  const deleteElement = (id) => {
+    let newData = JSON.parse(JSON.stringify(userData));
+    delete newData.products[id];
+    // console.log(newData);
+    setUserData(newData);
+  };
   let ordenar = async () => {
     let order = {
       salesMan: userData.user,
-      quantities: products,
+      quantities: userData.products,
       registerDay: new Date(),
       products: {},
     };
-    for (let key in products) {
-      let product = await fetch(`${URL}/clothe/${key}`);
-      product = await product.json();
-      //   console.log(product);
-      order.products[key] = product;
+    for (let key in userData.products) {
+      // console.log(key);
+
+      order.products = {
+        ...order.products,
+        [key]: options.filter((opt) => opt.reference === key)[0],
+      };
     }
-    // console.log(order)
+    // console.log(options);
+    // console.log(order);
     let res = await fetch(`${URL}/order/new`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
     });
     res = await res.json();
-    console.log(res);
+    // console.log(res);
     if (res.id) {
       alert("orden creada");
-      setProducts({});
+      setUserData({ ...userData, products: {} });
     } else {
       alert("Hubo un error");
     }
@@ -47,25 +92,19 @@ function AsesorPage({ userData, setUserData }) {
     <>
       <div className="container-fluid">
         <div className="row">
-          <NavBar userData={userData} setUserData={setUserData}>
+          <NavBar>
             {pages.map((page) => (
-              <NavItem
-                text={page}
-                key={page}
-                state={actualPage}
-                setActualPage={setActualPage}
-              />
+              <NavItem text={page} key={page} state={actualPage} />
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
-            <FormMain
-              fields={order.fields}
-              action={order.action}
-              setUserData={setUserData}
-              userData={userData}
+            <FormMain fields={form.fields} action={form.action} />
+            <Table
+              headers={["Referencia", "Cantidad", "Acciones"]}
+              content={products}
+              actions={[{ name: "x", action: deleteElement }]}
             />
-            <Table setUserData={setProducts} userData={userData.products} />
-            {Object.keys(products).length > 0 ? (
+            {products[0].length > 0 ? (
               <button className="btn btn-sm btn-outline-dark" onClick={ordenar}>
                 Ordenar
               </button>
