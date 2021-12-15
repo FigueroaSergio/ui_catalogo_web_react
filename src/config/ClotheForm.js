@@ -35,17 +35,39 @@ let clothe = {
       required: true,
     },
   },
-  action: async function (data) {
-    data.availability = data.availability === "Si" ? true : false;
-    let res = await fetch(`${URL}/clothe/new`, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    res = await res.json();
-    if (res.reference) {
-      alert("Prenda creada");
-    }
+  action: {
+    post: async function (data, setUserData, userData) {
+      data.availability = data.availability === "Si" ? true : false;
+      let res = await fetch(`${URL}/clothe/new`, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      res = await res.json();
+      if (res.reference) {
+        alert("Prenda creada");
+        return true;
+      } else {
+        alert("Hubo un error");
+        return false;
+      }
+    },
+    update: async function (data, setUserData, userData) {
+      data.availability = data.availability === "Si" ? true : false;
+      let res = await fetch(`${URL}/clothe/update`, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      res = await res.json();
+      if (res.reference) {
+        alert("Prenda actualizada");
+        return true;
+      } else {
+        alert("Hubo un error");
+        return false;
+      }
+    },
   },
 };
 export { clothe };

@@ -9,7 +9,10 @@ function FormMain({ fields, action }) {
     e.preventDefault();
     let data = userData.form;
     // console.log(data);
-    action(data, setUserData, userData);
+    action(data, setUserData, userData).then((res) => {
+      if (res)
+        setUserData({ ...userData, form: {}, method: "post", update: false });
+    });
   };
   return (
     <>

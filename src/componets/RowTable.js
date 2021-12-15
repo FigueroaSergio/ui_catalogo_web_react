@@ -1,4 +1,4 @@
-function RowTable({ row, table_index, actions }) {
+function RowTable({ row, table_index, actions = [] }) {
   return row.length > 0 ? (
     <>
       <tr>
@@ -9,7 +9,7 @@ function RowTable({ row, table_index, actions }) {
           <td>
             {actions.map((action, index) => (
               <button
-                className="btn btn-sm btn-outline-dark"
+                className="btn btn-sm btn-outline-dark m-1"
                 key={`action-${table_index}-${index}`}
                 onClick={() => {
                   action.action(row[0]);

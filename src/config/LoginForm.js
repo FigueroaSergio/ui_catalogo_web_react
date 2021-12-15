@@ -19,11 +19,14 @@ let login = {
       res = await res.json();
       if (res.id == null) {
         alert("Password incorrecta no existe");
+        return false;
       } else {
-        setUserData({ user: res, form: {} });
+        setUserData({ user: res, form: {}, update: false });
+        return true;
       }
     } else {
       alert("Email no existe");
+      return false;
     }
   },
 };

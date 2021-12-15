@@ -29,24 +29,45 @@ let user = {
       required: true,
     },
   },
-  action: async function (data) {
-    // console.log(data);
-    let res = await fetch(`${URL}/user/emailexist/${data.email}`);
-    res = await res.json();
+  action: {
+    post: async function (data) {
+      // console.log(data);
+      let res = await fetch(`${URL}/user/emailexist/${data.email}`);
+      res = await res.json();
 
-    if (!res) {
-      res = await fetch(`${URL}/user/new`, {
-        method: "post",
+      if (!res) {
+        res = await fetch(`${URL}/user/new`, {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        res = await res.json();
+        if (res.id) {
+          alert("Usuario creado");
+          return true;
+        }
+      } else {
+        alert("El correo ya existe");
+        return false;
+      }
+    },
+    update: async function (data) {
+      console.log(data);
+
+      let res = await fetch(`${URL}/user/update`, {
+        method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       res = await res.json();
       if (res.id) {
-        alert("Usuario creado");
+        alert("Usuario actualizado");
+        return true;
+      } else {
+        alert("El correo ya existe");
+        return false;
       }
-    } else {
-      alert("El correo ya existe");
-    }
+    },
   },
 };
 export { user };

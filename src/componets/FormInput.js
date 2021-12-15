@@ -31,7 +31,7 @@ function FormInput({ name, type, required, opts }) {
       <select
         className="form-select"
         name={name}
-        defaultValue={valInput}
+        value={valInput}
         onChange={updateData}
         id={name}
         required={required}

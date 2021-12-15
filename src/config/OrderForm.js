@@ -12,7 +12,7 @@ let order = {
       required: true,
     },
   },
-  action: async function (data, setUserData, userData) {
+  action: function (data, setUserData, userData) {
     // console.log(data);
     let products = userData.products;
     let { product, quantity } = data;
@@ -30,8 +30,8 @@ let order = {
         products = { ...products, [product]: quantity + oldData };
       }
     }
-    setUserData({ ...userData, products });
-    // console.log(userData);
+    setUserData({ ...userData, products, update: false });
+    return true;
   },
 };
 export { order };
