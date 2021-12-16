@@ -46,7 +46,9 @@ function AdminPage() {
   };
   const deleteDato = async (id) => {
     let data = await fetch(`${URL}/${actualPage}/${id}`, { method: "delete" });
-    // console.log(data);
+
+    if (data.status === 204) alert(`${actualPage} eliminido`);
+
     setUserData({ ...userData, update: false });
   };
   const editDato = (id) => {
@@ -94,11 +96,11 @@ function AdminPage() {
 
       setData(data);
 
-      setUserData({ ...userData, update: true, data });
+      setUserData({ ...userData, update: true });
 
-      console.log(userData);
+      // console.log(userData);
     };
-    console.log("jumm");
+    // console.log("jumm");
     getOpts();
   }, [actualPage, userData.update, setUserData]);
   return (
@@ -111,6 +113,13 @@ function AdminPage() {
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
+            <h2>
+              {actualPage === "clothe"
+                ? "Prendas"
+                : actualPage === "user"
+                ? "Usuarios"
+                : null}
+            </h2>
             <FormMain
               fields={form[actualPage].fields}
               action={form[actualPage].action[userData.method]}

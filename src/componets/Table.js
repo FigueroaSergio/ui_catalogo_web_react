@@ -1,6 +1,6 @@
 import { RowTable } from "./RowTable";
 
-function Table({ headers, content, actions }) {
+function Table({ headers, content = [[]], actions }) {
   //   console.log(userData);
   return (
     <>

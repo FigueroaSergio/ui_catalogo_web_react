@@ -98,6 +98,7 @@ function AsesorPage() {
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
+            <h2>Ordernar</h2>
             <FormMain fields={form.fields} action={form.action} />
             <Table
               headers={["Referencia", "Cantidad", "Acciones"]}
