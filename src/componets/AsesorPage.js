@@ -5,6 +5,8 @@ import { NavBar } from "./NavBar";
 import { NavItem } from "./NavItem";
 import { FormMain } from "./FormMain";
 import { Table } from "./Table";
+import { Modal } from "./Modal";
+
 import { order } from "../config/OrderForm";
 import { URL } from "../config/config";
 
@@ -99,17 +101,30 @@ function AsesorPage() {
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
             <h2>Ordernar</h2>
-            <FormMain fields={form.fields} action={form.action} />
-            <Table
-              headers={["Referencia", "Cantidad", "Acciones"]}
-              content={products}
-              actions={[{ name: "x", action: deleteElement }]}
-            />
-            {products[0].length > 0 ? (
-              <button className="btn btn-sm btn-outline-dark" onClick={ordenar}>
-                Ordenar
-              </button>
-            ) : null}
+            <button
+              type="button"
+              className="btn btn-dark"
+              data-bs-toggle="modal"
+              data-bs-target="#Modal"
+            >
+              Nuevo
+            </button>
+            <Modal title="Ordenar">
+              <FormMain fields={form.fields} action={form.action} />
+              <Table
+                headers={["Referencia", "Cantidad", "Acciones"]}
+                content={products}
+                actions={[{ name: "x", action: deleteElement }]}
+              />
+              {products[0].length > 0 ? (
+                <button
+                  className="btn btn-sm btn-outline-dark"
+                  onClick={ordenar}
+                >
+                  Ordenar
+                </button>
+              ) : null}
+            </Modal>
           </div>
         </div>
       </div>

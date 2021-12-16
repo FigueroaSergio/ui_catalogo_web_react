@@ -3,12 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { NavBar } from "./NavBar";
 import { NavItem } from "./NavItem";
 import { FormMain } from "./FormMain";
+import { Table } from "./Table";
+import { Modal } from "./Modal";
 
 import { clothe } from "../config/ClotheForm";
 import { user } from "../config/Userform";
 
 import { Context } from "./Context/Context";
-import { Table } from "./Table";
 
 import { URL } from "../config/config";
 
@@ -66,14 +67,17 @@ function AdminPage() {
       form,
       method: "update",
     });
+    setOpenModal(!openModal);
     //
   };
-  const { userData, setUserData } = useContext(Context);
+  const { userData, setUserData, openModal, setOpenModal } =
+    useContext(Context);
   const [data, setData] = useState([[]]);
   const pages = ["clothe", "user"];
   const form = { clothe, user };
   let actualPage = userData.page || "user";
   let actualTable = normalizeData(data);
+
   let headers = {
     clothe: [
       "#",
@@ -120,21 +124,34 @@ function AdminPage() {
                 ? "Usuarios"
                 : null}
             </h2>
-            <FormMain
-              fields={form[actualPage].fields}
-              action={form[actualPage].action[userData.method]}
-            />
+
+            <button
+              type="button"
+              className="btn btn-dark"
+              data-bs-toggle="modal"
+              data-bs-target="#Modal"
+            >
+              Nuevo
+            </button>
+
             <Table
               headers={headers[actualPage]}
               content={actualTable}
               actions={[
-                { name: "Editar", action: editDato },
+                { name: "Editar", action: editDato, modal: "#Modal" },
                 { name: "x", action: deleteDato },
               ]}
             />
           </div>
         </div>
       </div>
+
+      <Modal title={actualPage}>
+        <FormMain
+          fields={form[actualPage].fields}
+          action={form[actualPage].action[userData.method]}
+        />
+      </Modal>
     </>
   );
 }

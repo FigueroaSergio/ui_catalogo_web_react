@@ -51,7 +51,6 @@ function DetailOrder({ order }) {
 
   return (
     <>
-      <h5>Detalles</h5>
       {order.salesMan ? (
         <>
           <p>

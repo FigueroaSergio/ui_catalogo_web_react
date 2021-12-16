@@ -4,6 +4,8 @@ import { NavBar } from "./NavBar";
 import { NavItem } from "./NavItem";
 import { Table } from "./Table";
 import { DetailOrder } from "./DetailOrder";
+import { Modal } from "./Modal";
+
 import { Context } from "./Context/Context";
 
 import { URL } from "../config/config";
@@ -85,9 +87,13 @@ function CoordPage() {
             <Table
               headers={headers}
               content={actualTable}
-              actions={[{ name: "Detalles", action: viewDetails }]}
+              actions={[
+                { name: "Detalles", action: viewDetails, modal: "#Modal" },
+              ]}
             />
-            <DetailOrder order={detailTable} />
+            <Modal title="Detalles">
+              <DetailOrder order={detailTable} />
+            </Modal>
           </div>
         </div>
       </div>
