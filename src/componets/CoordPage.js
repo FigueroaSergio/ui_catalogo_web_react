@@ -13,6 +13,7 @@ import OrdersTable from "../config/OrdersTable";
 
 function CoordPage() {
   const normalizeData = (rawData) => {
+    console.log(rawData);
     if (rawData.length === 0 || rawData[0].length === 0) {
       return [[]];
     } else {
@@ -37,6 +38,7 @@ function CoordPage() {
     const getData = async () => {
       let data = await fetch(`${URL}/order/zona/${userData.user.zone}`);
       data = await data.json();
+      console.log(data);
       setData(data);
       setUpdate(true);
     };

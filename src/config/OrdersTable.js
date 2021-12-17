@@ -14,6 +14,7 @@ let OrdersTable = {
       row.push(dato.status);
       data.push(row);
     });
+    return data;
   },
 };
 export default OrdersTable;

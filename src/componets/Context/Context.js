@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 const Context = createContext();
 function ContextProvider({ children }) {
-  const [userData, setUserData] = useState({ user: { type: "COORD" } });
+  const [userData, setUserData] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [method, setMethod] = useState("post");
   const [form, setFormData] = useState({});

@@ -30,6 +30,7 @@ function AdminPage() {
     } else {
       form = data.filter((opt) => opt.id === id)[0];
     }
+    setFormData(form);
     setMethod("update");
     setOpenModal(!openModal);
     //
@@ -42,6 +43,7 @@ function AdminPage() {
     setMethod,
     update,
     setUpdate,
+    setFormData,
   } = useContext(Context);
   const [data, setData] = useState([[]]);
   const pages = ["clothe", "user"];
