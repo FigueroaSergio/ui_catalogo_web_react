@@ -50,7 +50,7 @@ function AdminPage() {
 
     if (data.status === 204) alert(`${actualPage} eliminido`);
 
-    setUserData({ ...userData, update: false });
+    setUpdate(false);
   };
   const editDato = (id) => {
     let form;
@@ -62,20 +62,23 @@ function AdminPage() {
       form = data.filter((opt) => opt.id === id)[0];
     }
 
-    setUserData({
-      ...userData,
-      form,
-      method: "update",
-    });
+    setMethod("update");
     setOpenModal(!openModal);
     //
   };
-  const { userData, setUserData, openModal, setOpenModal } =
-    useContext(Context);
+  const {
+    userData,
+    openModal,
+    setOpenModal,
+    method,
+    setMethod,
+    update,
+    setUpdate,
+  } = useContext(Context);
   const [data, setData] = useState([[]]);
   const pages = ["clothe", "user"];
   const form = { clothe, user };
-  let actualPage = userData.page || "user";
+  let actualPage = userData.page || "clothe";
   let actualTable = normalizeData(data);
 
   let headers = {
@@ -97,16 +100,14 @@ function AdminPage() {
     const getOpts = async () => {
       let data = await fetch(`${URL}/${actualPage}/all`);
       data = await data.json();
-
       setData(data);
-
-      setUserData({ ...userData, update: true });
+      setUpdate(true);
 
       // console.log(userData);
     };
     // console.log("jumm");
     getOpts();
-  }, [actualPage, userData.update, setUserData]);
+  }, [actualPage, update, setUpdate]);
   return (
     <>
       <div className="container-fluid">
@@ -149,7 +150,7 @@ function AdminPage() {
       <Modal title={actualPage}>
         <FormMain
           fields={form[actualPage].fields}
-          action={form[actualPage].action[userData.method]}
+          action={form[actualPage].action[method]}
         />
       </Modal>
     </>

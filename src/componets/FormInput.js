@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { Context } from "./Context/Context";
 function FormInput({ name, type, required, opts }) {
-  const { userData, setUserData } = useContext(Context);
+  const { form, setFormData } = useContext(Context);
 
-  let valInput = userData.form[name] ? userData.form[name] : "";
+  let valInput = form[name] ? form[name] : "";
 
   const updateData = (e) => {
-    setUserData({
-      ...userData,
-      form: { ...userData.form, [e.target.name]: e.target.value },
+    setFormData({
+      ...form,
+      [e.target.name]: e.target.value,
     });
     // console.log(userData);
   };

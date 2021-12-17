@@ -18,8 +18,9 @@ function formDate(date) {
 function CoordPage() {
   const normalizeData = (rawData) => {
     let data = [];
+    // console.log(data);
 
-    if (rawData[0].length === 0) {
+    if (rawData.length === 0 || rawData[0].length === 0) {
       return [[]];
     } else {
       rawData.forEach((dato) => {
@@ -42,7 +43,7 @@ function CoordPage() {
     // console.log(order);
     setDetail(order);
   };
-  const { userData, setUserData } = useContext(Context);
+  const { userData, setUserData, setUpdate, update } = useContext(Context);
   const pages = ["orders"];
   let actualPage = userData.page || "orders";
   const [data, setData] = useState([[]]);
@@ -66,13 +67,13 @@ function CoordPage() {
     const getData = async () => {
       let data = await fetch(`${URL}/order/zona/${userData.user.zone}`);
       data = await data.json();
-      // console.log("data");
+      // console.log(data);
       setData(data);
 
-      setUserData({ ...userData, update: true });
+      setUpdate(true);
     };
     getData();
-  }, [userData.update, setUserData]);
+  }, [update, userData.user.zone, setUpdate]);
   return (
     <>
       <div className="container-fluid">

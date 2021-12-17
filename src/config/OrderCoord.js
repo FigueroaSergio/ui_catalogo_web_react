@@ -15,8 +15,12 @@ let OrderCoord = {
       body: JSON.stringify(data),
     });
     res = await res.json();
+    console.log(data);
     if (res.id) {
       alert("Order actualizada");
+      return true;
+    } else {
+      alert("Hubo un error");
       return true;
     }
   },

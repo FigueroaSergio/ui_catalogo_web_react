@@ -1,7 +1,9 @@
 import { useContext } from "react";
+import { CardProfile } from "./CardProfile";
 import { Context } from "./Context/Context";
+import { Modal } from "./Modal";
 function NavBar({ children }) {
-  const { setUserData } = useContext(Context);
+  const { userData, setUserData } = useContext(Context);
   const singout = () => {
     setUserData({ page: "", form: {} });
   };
@@ -13,6 +15,15 @@ function NavBar({ children }) {
       >
         <div className="position-sticky">
           <ul className=" navbar-nav  flex-column">
+            <li className="nav-item">
+              <p
+                className="nav-link"
+                data-bs-toggle="modal"
+                data-bs-target="#profile"
+              >
+                Perfil
+              </p>
+            </li>
             {children}
 
             <li className="nav-item">
@@ -23,6 +34,9 @@ function NavBar({ children }) {
           </ul>
         </div>
       </nav>
+      <Modal title="Perfil" id="profile">
+        <CardProfile user={userData.user} />
+      </Modal>
     </>
   );
 }

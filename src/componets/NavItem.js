@@ -12,7 +12,7 @@ function NavItem({ text, state }) {
         className={`nav-link ${state === text && "active"}`}
         onClick={chagePage}
       >
-        {text}
+        {text.charAt(0).toUpperCase() + text.slice(1)}
       </p>
     </li>
   );

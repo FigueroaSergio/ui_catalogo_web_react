@@ -3,17 +3,20 @@ import { Context } from "./Context/Context";
 import { FormItem } from "./FormItem";
 
 function FormMain({ fields, action }) {
-  const { userData, setUserData } = useContext(Context);
+  const { form, setFormData, setUserData, userData, setUpdate } =
+    useContext(Context);
   const cancel = () => {
-    setUserData({ ...userData, form: {}, method: "post" });
+    setFormData({});
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    let data = userData.form;
+
     // console.log(data);
-    action(data, setUserData, userData).then((res) => {
-      if (res)
-        setUserData({ ...userData, form: {}, method: "post", update: false });
+    action(form, setUserData, userData).then((res) => {
+      if (res) {
+        setFormData({});
+        setUpdate(false);
+      }
     });
   };
   return (

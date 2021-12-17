@@ -4,7 +4,7 @@ import { OrderCoord } from "../config/OrderCoord";
 import { useContext, useEffect } from "react";
 import { Context } from "./Context/Context";
 function DetailOrder({ order }) {
-  const { userData, setUserData } = useContext(Context);
+  const { setFormData } = useContext(Context);
   const headersDetail = [
     "Id",
     "Categoria",
@@ -33,19 +33,15 @@ function DetailOrder({ order }) {
         row.push(order.quantities[key]);
         detailT.push(row);
       }
-      console.log(detailT);
+      // console.log(detailT);
       return detailT;
     } catch {
       return [[]];
     }
   };
   useEffect(() => {
-    if (order.id != null)
-      setUserData({
-        ...userData,
-        form: { id: order.id, status: order.status },
-      });
-  }, [order]);
+    if (order.id != null) setFormData({ id: order.id, status: order.status });
+  }, [order, setFormData]);
 
   let detailTable = normilizeData(order);
 

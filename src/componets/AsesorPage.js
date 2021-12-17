@@ -75,7 +75,7 @@ function AsesorPage() {
       };
     }
     // console.log(options);
-    // console.log(order);
+    console.log(order);
     let res = await fetch(`${URL}/order/new`, {
       method: "post",
       headers: { "Content-Type": "application/json" },

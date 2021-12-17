@@ -2,14 +2,12 @@ import { createContext, useState } from "react";
 
 const Context = createContext();
 function ContextProvider({ children }) {
-  const [userData, setUserData] = useState({
-    user: { type: "COORD", zone: "ZONA 1" },
-    form: {},
-    page: "",
-    method: "post",
-    update: true,
-  });
+  const [userData, setUserData] = useState({});
   const [openModal, setOpenModal] = useState(false);
+  const [method, setMethod] = useState("post");
+  const [form, setFormData] = useState({});
+  const [page, setPage] = useState("");
+  const [update, setUpdate] = useState(true);
   return (
     <Context.Provider
       value={{
@@ -17,6 +15,14 @@ function ContextProvider({ children }) {
         setUserData,
         openModal,
         setOpenModal,
+        method,
+        setMethod,
+        form,
+        setFormData,
+        page,
+        setPage,
+        update,
+        setUpdate,
       }}
     >
       {children}

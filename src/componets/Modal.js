@@ -1,8 +1,8 @@
-function Modal({ children, title }) {
+function Modal({ children, title, id = "Modal" }) {
   return (
     <div
       className="modal fade"
-      id="Modal"
+      id={id}
       tabIndex="-1"
       aria-labelledby="modal"
       aria-hidden="true"
