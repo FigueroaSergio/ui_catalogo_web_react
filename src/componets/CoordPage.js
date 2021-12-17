@@ -9,38 +9,18 @@ import { Modal } from "./Modal";
 import { Context } from "./Context/Context";
 
 import { URL } from "../config/config";
-function formDate(date) {
-  let ndate = new Date(date);
-  let str =
-    ndate.getDate() + "/" + (ndate.getMonth() + 1) + "/" + ndate.getFullYear();
-  return str;
-}
+import OrdersTable from "../config/OrdersTable";
+
 function CoordPage() {
   const normalizeData = (rawData) => {
-    let data = [];
-    // console.log(data);
-
     if (rawData.length === 0 || rawData[0].length === 0) {
       return [[]];
     } else {
-      rawData.forEach((dato) => {
-        let row = [];
-        row.push(dato.id);
-        row.push(dato.salesMan.id);
-        row.push(dato.salesMan.name);
-        row.push(dato.salesMan.email);
-        row.push(formDate(dato.registerDay));
-
-        row.push(dato.status);
-        data.push(row);
-      });
+      return OrdersTable.formateData(rawData);
     }
-    return data;
   };
   const viewDetails = (id) => {
-    // console.log(id);
     let order = data.filter((order) => order.id === id)[0];
-    // console.log(order);
     setDetail(order);
   };
   const { userData, setUserData, setUpdate, update } = useContext(Context);
@@ -48,16 +28,6 @@ function CoordPage() {
   let actualPage = userData.page || "orders";
   const [data, setData] = useState([[]]);
   const [detail, setDetail] = useState([[]]);
-  // console.log(userData);
-  const headers = [
-    "#",
-    "Id.Cl",
-    "Nombres",
-    "Email",
-    "Fecha",
-    "Estado",
-    "Acciones",
-  ];
 
   let actualTable = normalizeData(data);
 
@@ -67,9 +37,7 @@ function CoordPage() {
     const getData = async () => {
       let data = await fetch(`${URL}/order/zona/${userData.user.zone}`);
       data = await data.json();
-      // console.log(data);
       setData(data);
-
       setUpdate(true);
     };
     getData();
@@ -84,9 +52,9 @@ function CoordPage() {
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
-            <h2>Ordernes</h2>
+            <h2>Ordenes</h2>
             <Table
-              headers={headers}
+              headers={OrdersTable.headers}
               content={actualTable}
               actions={[
                 { name: "Detalles", action: viewDetails, modal: "#Modal" },

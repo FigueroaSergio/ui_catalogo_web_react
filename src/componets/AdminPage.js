@@ -13,55 +13,23 @@ import { Context } from "./Context/Context";
 
 import { URL } from "../config/config";
 
-function AdminPage() {
-  const normalizeData = (rawData) => {
-    let data = [];
-    if (actualPage === "clothe") {
-      rawData.forEach((dato) => {
-        let row = [];
-        row.push(dato.reference);
-        row.push(dato.category);
-        row.push(dato.size);
-        row.push(dato.description);
-        let ava = dato.availability ? "Si" : "No";
+import UserTable from "../config/UserTable";
+import ClotheTable from "../config/ClotheTable";
 
-        row.push(ava);
-        row.push(dato.price);
-        row.push(dato.quantity);
-        row.push("link");
-        data.push(row);
-      });
-    }
-    if (actualPage === "user") {
-      rawData.forEach((dato) => {
-        let row = [];
-        row.push(dato.id);
-        row.push(dato.identification);
-        row.push(dato.name);
-        row.push(dato.email);
-        row.push(dato.type);
-        data.push(row);
-      });
-    }
-    return data;
-  };
+function AdminPage() {
   const deleteDato = async (id) => {
     let data = await fetch(`${URL}/${actualPage}/${id}`, { method: "delete" });
-
     if (data.status === 204) alert(`${actualPage} eliminido`);
-
     setUpdate(false);
   };
   const editDato = (id) => {
     let form;
-
     if (actualPage === "clothe") {
       form = data.filter((opt) => opt.reference === id)[0];
       form.availability = form.availability ? "Si" : "No";
     } else {
       form = data.filter((opt) => opt.id === id)[0];
     }
-
     setMethod("update");
     setOpenModal(!openModal);
     //
@@ -78,34 +46,17 @@ function AdminPage() {
   const [data, setData] = useState([[]]);
   const pages = ["clothe", "user"];
   const form = { clothe, user };
+  const tables = { user: UserTable, clothe: ClotheTable };
   let actualPage = userData.page || "clothe";
-  let actualTable = normalizeData(data);
-
-  let headers = {
-    clothe: [
-      "#",
-      "Categoria",
-      "Talla",
-      "Descripcion",
-      "Disp.",
-      "Precio",
-      "Cantidad",
-      "Photography",
-      "Acciones",
-    ],
-    user: ["#", "identification", "name", "email", "type"],
-  };
-
+  let actualTable = tables[actualPage].formateData(data);
   useEffect(() => {
     const getOpts = async () => {
       let data = await fetch(`${URL}/${actualPage}/all`);
       data = await data.json();
       setData(data);
       setUpdate(true);
-
-      // console.log(userData);
     };
-    // console.log("jumm");
+
     getOpts();
   }, [actualPage, update, setUpdate]);
   return (
@@ -136,7 +87,7 @@ function AdminPage() {
             </button>
 
             <Table
-              headers={headers[actualPage]}
+              headers={tables[actualPage].headers}
               content={actualTable}
               actions={[
                 { name: "Editar", action: editDato, modal: "#Modal" },

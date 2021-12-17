@@ -22,6 +22,7 @@ let user = {
       required: true,
     },
     zone: { type: "text", maxlength: "50" },
+    birthtDay: { type: "date", maxlength: "50", required: true },
     address: { type: "text", maxlength: "50" },
     type: {
       type: "select",
@@ -34,7 +35,7 @@ let user = {
       // console.log(data);
       let res = await fetch(`${URL}/user/emailexist/${data.email}`);
       res = await res.json();
-
+      data["monthBirthtDay"] = data.birthtDay.split("-")[1];
       if (!res) {
         res = await fetch(`${URL}/user/new`, {
           method: "post",
