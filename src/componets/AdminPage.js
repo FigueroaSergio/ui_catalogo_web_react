@@ -35,6 +35,18 @@ function AdminPage() {
     setOpenModal(!openModal);
     //
   };
+  const filter = (eve) => {
+    let text = eve.target.value;
+    // console.log(text);
+    let datos = data.filter((opt) => opt.monthBirthtDay === text);
+    if (text.length > 0) {
+      setSeach(datos);
+    } else {
+      setSeach(data);
+    }
+    // console.log(datos);
+  };
+
   const {
     userData,
     openModal,
@@ -46,16 +58,18 @@ function AdminPage() {
     setFormData,
   } = useContext(Context);
   const [data, setData] = useState([[]]);
+  const [search, setSeach] = useState([[]]);
   const pages = ["clothe", "user"];
   const form = { clothe, user };
   const tables = { user: UserTable, clothe: ClotheTable };
   let actualPage = userData.page || "clothe";
-  let actualTable = tables[actualPage].formateData(data);
+  let actualTable = tables[actualPage].formateData(search);
   useEffect(() => {
     const getOpts = async () => {
       let data = await fetch(`${URL}/${actualPage}/all`);
       data = await data.json();
       setData(data);
+      setSeach(data);
       setUpdate(true);
     };
 
@@ -71,14 +85,7 @@ function AdminPage() {
             ))}
           </NavBar>
           <div className="mt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
-            <h2>
-              {actualPage === "clothe"
-                ? "Prendas"
-                : actualPage === "user"
-                ? "Usuarios"
-                : null}
-            </h2>
-
+            <h2>{actualPage}</h2>
             <button
               type="button"
               className="btn btn-dark"
@@ -87,6 +94,19 @@ function AdminPage() {
             >
               Nuevo
             </button>
+            {actualPage === "user" && (
+              <div className="col-sm-6 col-md-4">
+                <div className="input-group mt-2">
+                  <div className="input-group-text">Mes</div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="filtro por mes"
+                    onChange={filter}
+                  />
+                </div>
+              </div>
+            )}
 
             <Table
               headers={tables[actualPage].headers}

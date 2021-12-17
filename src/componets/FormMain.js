@@ -36,7 +36,11 @@ function FormMain({ fields, action }) {
                   />
                 );
               })}
-              <button type="submit" className="btn btn-dark">
+              <button
+                type="submit"
+                data-bs-dismiss="modal"
+                className="btn btn-dark"
+              >
                 Enviar
               </button>
               <button onClick={cancel} className="btn btn-outline-dark ms-1">

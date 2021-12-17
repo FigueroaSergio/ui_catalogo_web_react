@@ -8,7 +8,6 @@ let ClotheTable = {
     "Precio",
     "Cantidad",
     "Photography",
-    "Acciones",
   ],
   formateData: (rawData) => {
     let data = [];

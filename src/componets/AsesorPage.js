@@ -9,6 +9,7 @@ import { Modal } from "./Modal";
 
 import { order } from "../config/OrderForm";
 import { URL } from "../config/config";
+import { TableProductos } from "./TableProductos";
 
 function AsesorPage() {
   const normilizeData = (data) => {
@@ -109,6 +110,7 @@ function AsesorPage() {
             >
               Nuevo
             </button>
+            <TableProductos />
             <Modal title="Ordenar">
               <FormMain fields={form.fields} action={form.action} />
               <Table

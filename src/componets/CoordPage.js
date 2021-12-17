@@ -13,7 +13,7 @@ import OrdersTable from "../config/OrdersTable";
 
 function CoordPage() {
   const normalizeData = (rawData) => {
-    console.log(rawData);
+    // console.log(rawData);
     if (rawData.length === 0 || rawData[0].length === 0) {
       return [[]];
     } else {
